@@ -1,33 +1,16 @@
-import { ISolutionsRepository } from '../repositories/solutionsRepository'
+import SolutionsRepository from '../repositories/solutionsRepository'
 
-interface ISolutionsService {
-  createByOwner: (owner: string) => boolean
-  modifyById: (id: string) => boolean
-  deleteById: (id: string) => boolean
-}
+class SolutionsService {
+  private readonly solutionRepository: SolutionsRepository
 
-let repository: ISolutionsRepository
+  constructor (solutionRepository: SolutionsRepository) {
+    this.solutionRepository = solutionRepository
+  }
 
-const createByOwner = (owner: string): boolean => {
-  repository.createSolution(owner)
-  return true
-}
-
-const modifyById = (id: string): boolean => {
-  repository.modifySolution(id)
-  return true
-}
-
-const deleteById = (id: string): boolean => {
-  repository.deleteSolution(id)
-  return true
-}
-
-export const SolutionsService = (solutionsRepository: ISolutionsRepository): ISolutionsService => {
-  repository = solutionsRepository
-  return {
-    createByOwner,
-    modifyById,
-    deleteById
+  async create (owner: string): Promise<boolean> {
+    await this.solutionRepository.createSolution(owner)
+    return true
   }
 }
+
+export default SolutionsService

@@ -1,4 +1,17 @@
 export interface Widget {
-  visualization: 'bar' | 'pie graphics' | 'images'
-  createdAt: Date
+  id: string
+  type: 'bar' | 'pie graphics' | 'images'
+  position: {
+    x: number
+    y: number
+  }
+  size: {
+    width: number
+    height: number
+  }
+  settings: {
+    dataSource: string
+    xAxis: string
+    yAxis: string
+  }
 }
