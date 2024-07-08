@@ -5,8 +5,8 @@ const router = Router()
 
 router.post('/create', async (req: Request, res: Response) => {
   try {
-    const newUser = await userService.createUser(req.body)
-    res.status(201).json(newUser)
+    await userService.createUser(req.body)
+    res.status(200).send("Success user created")
   } catch (err: any) {
     res.status(500).json({ error: err.message })
   }

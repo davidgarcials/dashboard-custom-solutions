@@ -12,12 +12,11 @@ class UserRepository {
     return await db.collection<User>(this.collection).findOne({ email })
   }
 
-  async create(user: User): Promise<User> {
+  async create(user: User): Promise<void> {
     const db = await mongoConnection.getDb()
     const hashedPassword = await bcrypt.hash(user.password, 10)
     const newUser = { ...user, password: hashedPassword, createdAt: new Date() }
-    const result = await db.collection<UserDTO>(this.collection).insertOne(newUser)
-    return { ...newUser, id: result.insertedId.toString() }
+    await db.collection<UserDTO>(this.collection).insertOne(newUser)
   }
 }
 
