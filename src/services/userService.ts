@@ -12,17 +12,13 @@ class UserService {
   }
 
   async createUser(user: User): Promise<void> {
-    if (!user.email || !user.password) {
-      throw new Error('You must provide email and password')
-    }
+    await this.userRepository.create(user)
+  }
 
+  async checkIfExists(user: User): Promise<boolean> {
     const exists = await this.userRepository.findByEmail(user.email)
 
-    if (exists) {
-      throw new Error("There is already a user with this email")
-    }
-
-    await this.userRepository.create(user)
+    return !exists ? false : true
   }
 
   async loginUser(email: string, password: string): Promise<string | null> {

@@ -2,13 +2,14 @@
   "name": "dashboard-custom-solutions",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --env-file=.env src/index.ts",
     "lint": "eslint -c .eslintrc packages/*/src//.ts --ext .ts --ignore-pattern node_modules --fix --quiet",
     "start": "node build/index.js",
     "tsc": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --runInBand",
     "migrate:up": "ts-node -r dotenv/config migrations/index.ts up",
     "migrate:down": "ts-node -r dotenv/config migrations/index.ts down"
   },
@@ -18,8 +19,13 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/mongodb": "^4.0.7",
+    "@types/supertest": "^6.0.2",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.2.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.3"
   },

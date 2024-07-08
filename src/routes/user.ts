@@ -5,6 +5,16 @@ const router = Router()
 
 router.post('/create', async (req: Request, res: Response) => {
   try {
+    if (!req.body.email || !req.body.password) {
+      return res.status(400).json({ message: 'You must provide email and password' });
+    }
+
+    const exists = await userService.checkIfExists(req.body)
+
+    if (exists) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
+
     await userService.createUser(req.body)
     res.status(200).send("Success user created")
   } catch (err: any) {
