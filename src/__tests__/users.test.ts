@@ -66,4 +66,44 @@ describe("Integration users tests", () => {
         expect(res.status).toBe(400)
         expect(res.body.message).toBe('You must provide email and password');
     })
+
+    it("Should login", async () => {
+        const email = 'test@example.com'
+        const password = 'password123'
+
+        await request(app).post('/users/create').send({
+            email,
+            password,
+        });
+
+        const res = await request(app).post('/users/login').send({
+            email,
+            password,
+        });
+
+        expect(res.body).toHaveProperty("token")
+
+        await db.collection(collection).deleteMany({ email })
+    })
+
+    it("Should login wrong params error", async () => {
+        const email = 'test@example.com'
+        const wrongEmail = 'wrong@example.com'
+        const password = 'password123'
+
+        await request(app).post('/users/create').send({
+            email,
+            password,
+        });
+
+        const res = await request(app).post('/users/login').send({
+            email: wrongEmail,
+            password,
+        });
+
+        expect(res.status).toBe(400)
+        expect(res.body.message).toBe('Invalid credentials');
+
+        await db.collection(collection).deleteMany({ email })
+    })
 })

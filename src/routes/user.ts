@@ -25,6 +25,11 @@ router.post('/create', async (req: Request, res: Response) => {
 router.post('/login', async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body
+
+    if (!email || !password) {
+      return res.status(400).json({ message: 'You must provide email and password' });
+    }
+
     const token = await userService.loginUser(email, password)
     if (token) {
       res.json({ token })
