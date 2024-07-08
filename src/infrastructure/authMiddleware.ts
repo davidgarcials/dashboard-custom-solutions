@@ -8,7 +8,7 @@ interface AuthRequest extends Request {
 
 const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
   const token = req.header('Authorization')?.replace('Bearer ', '')
-  if (token === undefined) {
+  if (!token) {
     return res.status(401).json({ message: 'No token, authorization denied' })
   }
 

@@ -15,7 +15,7 @@ mongoConnection.initClient().then(() => {
   console.log('Error connecting to Mongo ', e)
 })
 
-app.use('/api/users', authMiddleware, userRouter)
-app.use('/api/solutions', authMiddleware, solutionRouter)
+app.use('/users', userRouter)
+app.use('/solutions', authMiddleware, solutionRouter)
 
 export default app

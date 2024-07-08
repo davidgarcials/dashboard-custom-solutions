@@ -11,11 +11,10 @@ class UserService {
     this.userRepository = userRepository
   }
 
-  async getUserById(id: string): Promise<User | null> {
-    return await this.userRepository.findById(id)
-  }
-
   async createUser(user: User): Promise<User> {
+    if (!user.email || !user.password) {
+      throw new Error('You must provide email and password')
+    }
     return await this.userRepository.create(user)
   }
 
@@ -23,7 +22,7 @@ class UserService {
     const user = await this.userRepository.findByEmail(email)
     if ((user != null) && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign({ id: user.id }, getEnvVar('JWT_SECRET'), {
-        expiresIn: '1h'
+        expiresIn: '7 days'
       })
       return token
     }

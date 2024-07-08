@@ -14,7 +14,7 @@ const initClient = async (): Promise<void> => {
 }
 
 const closeClient = async (): Promise<void> => {
-  if (mongoClient === undefined) {
+  if (!mongoClient) {
     return
   }
 
@@ -22,11 +22,11 @@ const closeClient = async (): Promise<void> => {
 }
 
 const getDb = async (): Promise<Db> => {
-  if (mongoClient === undefined) {
+  if (!mongoClient) {
     await initClient()
   }
 
-  return mongoClient.db()
+  return mongoClient.db(getEnvVar("MONGO_DATABASE_NAME"))
 }
 
 export const mongoConnection = {
