@@ -1,8 +1,8 @@
 import { Screen } from './screens'
 
 export interface Solution {
-  id: string
+  id?: string
   name: string
-  email: string
+  owner: string
   screens?: Screen[]
 }
