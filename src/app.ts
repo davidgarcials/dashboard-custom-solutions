@@ -1,5 +1,5 @@
 import express from "express";
-import authMiddleware from "./infrastructure/authMiddleware";
+import authMiddleware from "./middleware/authMiddleware";
 import { mongoConnection } from "./infrastructure/mongo";
 import solutionRouter from "./routes/solution";
 import userRouter from "./routes/user";

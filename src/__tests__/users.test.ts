@@ -21,6 +21,7 @@ describe("Integration users tests", () => {
   });
 
   afterAll(async () => {
+    await db.collection(collection).deleteMany();
     await mongoConnection.closeClient();
   });
 

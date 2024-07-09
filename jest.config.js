@@ -1,8 +1,8 @@
-import { config as dotenvConfig } from "dotenv";
+const dotenv = require("dotenv");
 
-dotenvConfig();
+dotenv.config();
 
-export default {
+module.exports = {
   preset: "ts-jest",
   testEnvironment: "node",
   moduleFileExtensions: ["js", "ts"],

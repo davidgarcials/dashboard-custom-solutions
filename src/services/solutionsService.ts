@@ -8,12 +8,37 @@ class SolutionsService {
     this.solutionRepository = solutionRepository;
   }
 
-  async findOne(email: string, name: string): Promise<Solution | null> {
-    return this.solutionRepository.findSolution(email, name);
+  async findById(id: string) {
+    return this.solutionRepository.findById(id);
   }
 
-  async create(email: string, name: string): Promise<void> {
-    await this.solutionRepository.createSolution(email, name);
+  async findOneByEmailAndName(
+    email: string,
+    name: string,
+  ): Promise<Solution | null> {
+    return this.solutionRepository.findOneByEmailAndName(email, name);
+  }
+
+  async create(email: string, name: string): Promise<string> {
+    return this.solutionRepository.createSolution(email, name);
+  }
+
+  async modify(
+    id: string,
+    email: string,
+    name: string,
+  ): Promise<{ success: boolean; error?: string }> {
+    const result = await this.solutionRepository.modifySolution(
+      id,
+      email,
+      name,
+    );
+
+    if (!result.modifiedCount) {
+      return { success: false, error: "Error modifying solution" };
+    }
+
+    return { success: true };
   }
 
   async delete(id: string): Promise<{ success: boolean; error?: string }> {
