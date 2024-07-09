@@ -1,7 +1,9 @@
+import { Screen } from "../screen";
+
 export interface SolutionDTO {
-    _id?: string
-    name: string
-    owner: string
-    screens?: Screen[]
-    createdAt: Date
+  _id?: string;
+  name: string;
+  owner: string;
+  screens?: Screen[];
+  createdAt: Date;
 }

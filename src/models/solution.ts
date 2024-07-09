@@ -1,8 +1,8 @@
-import { Screen } from './screens'
+import { Screen } from "./screen";
 
 export interface Solution {
-  id?: string
-  name: string
-  owner: string
-  screens?: Screen[]
+  id?: string;
+  name: string;
+  owner: string;
+  screens?: Screen[];
 }

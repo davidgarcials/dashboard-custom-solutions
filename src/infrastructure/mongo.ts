@@ -1,36 +1,36 @@
-import { Db, MongoClient } from 'mongodb'
-import { getEnvVar } from './config'
+import { Db, MongoClient } from "mongodb";
+import { getEnvVar } from "./config";
 
-let mongoClient: MongoClient
+let mongoClient: MongoClient;
 
 const initClient = async (): Promise<void> => {
-  console.log('Connecting to Mongo...')
+  console.log("Connecting to Mongo...");
 
   try {
-    mongoClient = await MongoClient.connect(getEnvVar('MONGO_URI'))
+    mongoClient = await MongoClient.connect(getEnvVar("MONGO_URI"));
   } catch (e: any) {
-    throw new Error(e)
+    throw new Error(e);
   }
-}
+};
 
 const closeClient = async (): Promise<void> => {
   if (!mongoClient) {
-    return
+    return;
   }
 
-  await mongoClient.close()
-}
+  await mongoClient.close();
+};
 
 const getDb = async (): Promise<Db> => {
   if (!mongoClient) {
-    await initClient()
+    await initClient();
   }
 
-  return mongoClient.db(getEnvVar("MONGO_DATABASE_NAME"))
-}
+  return mongoClient.db(getEnvVar("MONGO_DATABASE_NAME"));
+};
 
 export const mongoConnection = {
   initClient,
   closeClient,
-  getDb
-}
+  getDb,
+};

@@ -1,21 +1,24 @@
-import express from 'express'
-import authMiddleware from './infrastructure/authMiddleware'
-import { mongoConnection } from './infrastructure/mongo'
-import solutionRouter from './routes/solution'
-import userRouter from './routes/user'
+import express from "express";
+import authMiddleware from "./infrastructure/authMiddleware";
+import { mongoConnection } from "./infrastructure/mongo";
+import solutionRouter from "./routes/solution";
+import userRouter from "./routes/user";
 
-const app = express()
+const app = express();
 
 // Middleware
-app.use(express.json())
+app.use(express.json());
 
-mongoConnection.initClient().then(() => {
-  console.log('Connected to Mongodb')
-}).catch(e => {
-  console.log('Error connecting to Mongo ', e)
-})
+mongoConnection
+  .initClient()
+  .then(() => {
+    console.log("Connected to Mongodb");
+  })
+  .catch((e) => {
+    console.log("Error connecting to Mongo ", e);
+  });
 
-app.use('/users', userRouter)
-app.use('/solutions', authMiddleware, solutionRouter)
+app.use("/users", userRouter);
+app.use("/solutions", authMiddleware, solutionRouter);
 
-export default app
+export default app;
