@@ -8,6 +8,11 @@ export class CreateSolutionsCollection implements MigrationInterface {
   async up(db: Db): Promise<any> {
     await db.createCollection(solutionsCollection);
     await db.createIndex(solutionsCollection, { owner: 1, name: 1 });
+    await db.createIndex(solutionsCollection, { "screens.id": 1 });
+    await db.createIndex(solutionsCollection, {
+      "screens.id": 1,
+      "screens.widgets.id": 1,
+    });
   }
 
   async down(db: Db): Promise<any> {
