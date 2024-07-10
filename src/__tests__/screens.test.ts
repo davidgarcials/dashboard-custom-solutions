@@ -2,26 +2,13 @@ import express, { Application } from "express";
 import { Db } from "mongodb";
 import request from "supertest";
 import { mongoConnection } from "../infrastructure/mongo";
-import { SolutionDTO } from "../models/DTOS/solutionDTO";
 import { Screen } from "../models/screen";
 import screenRouter from "../routes/screens";
+import { createSolution } from "./utils";
 
 jest.mock("../infrastructure/mongo");
 
 const collection = process.env.MONGO_SOLUTIONS_COLLECTION ?? "solutions";
-
-const createSolution = async (db: Db): Promise<string> => {
-  const newSolution: SolutionDTO = {
-    name: "Solution name",
-    owner: "test@example.com",
-    screens: [],
-    createdAt: new Date(),
-  };
-
-  const { insertedId } = await db.collection(collection).insertOne(newSolution);
-
-  return insertedId.toString();
-};
 
 describe("Integration screens tests", () => {
   let app: Application;

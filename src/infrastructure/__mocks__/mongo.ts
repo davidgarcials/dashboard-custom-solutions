@@ -3,8 +3,6 @@ import { Db, MongoClient } from "mongodb";
 let mongoClient: MongoClient;
 
 const initClient = async (): Promise<void> => {
-  console.log("Connecting to Mongo...");
-
   try {
     mongoClient = await MongoClient.connect("mongodb://localhost:27017");
   } catch (e: any) {
