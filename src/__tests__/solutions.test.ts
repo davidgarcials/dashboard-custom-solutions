@@ -7,7 +7,7 @@ import { SolutionDTO } from "../models/DTOS/solutionDTO";
 
 jest.mock("../infrastructure/mongo");
 
-const collection = process.env.MONGO_SOLUTIONS_COLLECTION ?? "users";
+const collection = process.env.MONGO_SOLUTIONS_COLLECTION ?? "solutions";
 
 describe("Integration solution tests", () => {
   let app: Application;
